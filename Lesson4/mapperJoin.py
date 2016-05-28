@@ -15,7 +15,8 @@ import sys
 import re
 import csv # required to read tab-delimited values 
 
-reader = csv.reader(sys.stdin, delimiter = '\t')
+reader = csv.reader(sys.stdin, delimiter='\t')
+writer = csv.writer(sys.stdout, delimiter='\t', quotechar='"', quoting=csv.QUOTE_ALL)
 for line in reader:
     data = [re.sub('"','',el) for el in line]
     if len(data) == 19: # then this line comes from forum_node
@@ -23,13 +24,8 @@ for line in reader:
         parent_id, abs_parent_id, added_at, score, state_string, last_edited_id,
         last_activity_by_id, last_activity_at, active_revision_id, extra, 
         extra_ref_id, extra_count, marked) = data 
-        # print key-(list of)value pairs
-        print "{0}\tB\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}".format(author_id, id, 
-                 title, tagnames, node_type, parent_id, abs_parent_id, added_at,score)
+        writer.writerow([author_id,'B',id,title,tagnames,node_type,parent_id,abs_parent_id,
+            added_at,score])
     if len(data) == 5:
         user_ptr_id, reputation, gold, silver, bronze = data
-        print "{0}\tA\t{1}\t{2}\t{3}\t{4}".format(user_ptr_id, reputation,
-                gold, silver, bronze)
-
-
-
+        writer.writerow([user_ptr_id,'A',reputation,gold,silver,bronze])

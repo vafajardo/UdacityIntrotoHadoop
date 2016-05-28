@@ -15,12 +15,11 @@ user_posts = {} # a dict whose values are lists of lists
 atts = ['user_id','id', 'title', 'tagnames' 'node_type', 'parent_id', 
         'abs_parent_id', 'added_at', 'score', 'reputation', 'gold', 'silver',
         'bronze']
-print '\t'.join(atts)
 
 for line in sys.stdin:
     data_mapped = line.strip().split("\t")
     user_id = data_mapped[0]
-    if data_mapped[1] == 'A': # int. record is from users file
+    if data_mapped[1] == '"A"': # int. record is from users file
         if user_id not in user_ratings:
             user_ratings[user_id] = data_mapped[2:]
         if user_id in user_posts: # some records from node file with same user_id read
