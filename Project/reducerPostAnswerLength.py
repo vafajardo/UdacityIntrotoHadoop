@@ -1,12 +1,10 @@
 #!/usr/bin/python
 
 import sys
-import heapq
 
 """
-This reduce returns the maximum count for each (author_id, hour) pair.
-It uses a dictionary to first store the counts from which a maximum heap is
-created and the maximum pairs are extracted.
+This script returns the question length along with the average length 
+of its answers (if they exist).
 """
 oldKey = None
 qLength = 0
