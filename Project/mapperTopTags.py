@@ -10,9 +10,7 @@ question type. The intermediate output of this mapper is the key-valued pairs
 """
 
 import sys
-import re
 import csv # required to read tab-delimited values 
-import datetime
 
 reader = csv.reader(sys.stdin, delimiter = '\t')
 next(reader, None) # to read the header line
