@@ -6,6 +6,8 @@ import sys
 This reducer takes the key-value pairs from the immediate records and outputs
 key-list-of-value pairs. The list contains the author_ids for each student
 that contributes to a single given forum thread.
+
+Note that this reducer can also be used a combiner script.
 """
 
 oldKey = None
@@ -17,6 +19,7 @@ for line in sys.stdin:
         continue
 
     thisKey, thisAuthor = data_mapped
+    
 
     # new succession of keys
     if oldKey and oldKey != thisKey:
@@ -25,7 +28,10 @@ for line in sys.stdin:
 
     # reassign oldKey and thisKey
     oldKey = thisKey
-    listofAuthors.append(thisAuthor)
+    if isinstance(thisAuthor,list):
+        listofAuthors += thisAuthor
+    else:
+        listofAuthors.append(thisAuthor)
   
 if oldKey != None:
     print '{0}\t{1}'.format(oldKey, listofAuthors)
